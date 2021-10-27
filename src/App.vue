@@ -12,8 +12,11 @@ const attributes: AttributeModel[] = [
     color: "teal",
   },
 ];
+
+const myDate = ref(new Date());
 </script>
 
 <template>
-  <VueCal :attributes="attributes" />
+  <VueCal :attributes="attributes" v-model="myDate" />
+  {{ myDate }}
 </template>

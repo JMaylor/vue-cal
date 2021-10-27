@@ -3,9 +3,13 @@ import { AttributeModel } from "@/types/types";
 import { getMonth, getDaysInMonth, setDate, add, sub } from "date-fns";
 import { state } from "@/store";
 
-defineProps<{
+const props = defineProps<{
   attributes: AttributeModel[];
+  modelValue?: Date;
 }>();
+
+const emit = defineEmits(["update:modelValue"]);
+provide("selectedDate", props.modelValue);
 
 function genMonth(date: Date): Date[] {
   const numDaysInMonth = getDaysInMonth(date);
@@ -15,6 +19,11 @@ function genMonth(date: Date): Date[] {
   }
   return dateArray;
 }
+
+watch(
+  () => state.selectedDate,
+  (val) => emit("update:modelValue", val)
+);
 
 const prevMonth = ref(genMonth(sub(state.activeDate, { months: 1 })));
 const currentMonth = ref(genMonth(state.activeDate));

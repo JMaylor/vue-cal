@@ -9,6 +9,10 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(["arrowPress"]);
 
+const isSelectedDate = computed(() =>
+  state.selectedDate ? isSameDay(state.selectedDate, props.day) : false
+);
+
 const display = computed(() => getDate(props.day));
 const isFocusable = (date: Date): boolean => isSameDay(date, state.activeDate);
 
@@ -25,10 +29,7 @@ watch(
   { immediate: true }
 );
 
-const selectDate = () => {
-  state.selectedDate = props.day;
-  console.log(state);
-};
+const selectDate = () => (state.selectedDate = props.day);
 </script>
 
 <template>
@@ -55,6 +56,7 @@ const selectDate = () => {
       hover:bg-zinc-100
       group
     "
+    :class="{ 'border border-black': isSelectedDate }"
   >
     {{ display }}
     <div
