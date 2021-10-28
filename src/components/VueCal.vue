@@ -50,40 +50,42 @@ const onNext = () => (state.activeDate = add(state.activeDate, { months: 1 }));
 </script>
 
 <template>
-  <div class="rounded-xl border w-72">
-    <CalHeader :date="state.activeDate" @prev="onPrev" @next="onNext" />
-    <div class="p-1 grid grid-cols-7">
-      <div
-        class="
-          flex
-          items-center
-          justify-center
-          w-10
-          h-10
-          text-zinc-400
-          font-medium
-        "
-        v-for="day in ['S', 'M', 'T', 'W', 'T', 'F', 'S']"
-      >
-        {{ day }}
+  <div class="flex">
+    <div class="rounded-xl border w-auto">
+      <CalHeader :date="state.activeDate" @prev="onPrev" @next="onNext" />
+      <div class="p-1 grid grid-cols-7">
+        <div
+          class="
+            flex
+            items-center
+            justify-center
+            w-10
+            h-10
+            text-zinc-400
+            font-medium
+          "
+          v-for="day in ['S', 'M', 'T', 'W', 'T', 'F', 'S']"
+        >
+          {{ day }}
+        </div>
+        <CalMonth
+          hidden
+          :month="prevMonth"
+          :key="prevMonthNumber"
+          :attributes="attributes"
+        ></CalMonth>
+        <CalMonth
+          :month="currentMonth"
+          :key="currentMonthNumber"
+          :attributes="attributes"
+        ></CalMonth>
+        <CalMonth
+          hidden
+          :month="nextMonth"
+          :key="nextMonthNumber"
+          :attributes="attributes"
+        ></CalMonth>
       </div>
-      <CalMonth
-        hidden
-        :month="prevMonth"
-        :key="prevMonthNumber"
-        :attributes="attributes"
-      ></CalMonth>
-      <CalMonth
-        :month="currentMonth"
-        :key="currentMonthNumber"
-        :attributes="attributes"
-      ></CalMonth>
-      <CalMonth
-        hidden
-        :month="nextMonth"
-        :key="nextMonthNumber"
-        :attributes="attributes"
-      ></CalMonth>
     </div>
   </div>
 </template>

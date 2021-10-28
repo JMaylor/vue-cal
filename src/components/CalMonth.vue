@@ -56,7 +56,6 @@ const numFillerDays = computed(
   <CalDay
     v-if="!hidden"
     v-for="(day, i) in month"
-    class="w-10 h-10"
     :class="[i == 0 ? colStart : '']"
     :day="day"
     @arrowPress="onArrowPress"
