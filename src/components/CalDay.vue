@@ -22,12 +22,19 @@ watch(
   () => state.activeDate,
   (value) => {
     if (state.arrowNav && isSameDay(value, props.day)) {
+      console.log("found the day", root);
       nextTick(() => root.value.focus());
       state.arrowNav = false;
     }
   },
-  { immediate: true }
 );
+
+onMounted(() => {
+  if (state.arrowNav && isSameDay(state.activeDate, props.day)) {
+    nextTick(() => root.value.focus());
+    state.arrowNav = false;
+  }
+});
 
 const selectDate = () => (state.selectedDate = props.day);
 </script>
