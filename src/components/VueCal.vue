@@ -20,6 +20,8 @@ function genMonth(date: Date): Date[] {
   return dateArray;
 }
 
+if (props.modelValue) state.selectedDate = props.modelValue;
+
 watch(
   () => state.selectedDate,
   (val) => emit("update:modelValue", val)
