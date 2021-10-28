@@ -23,7 +23,9 @@ watch(
   (value) => {
     if (state.arrowNav && isSameDay(value, props.day)) {
       console.log("found the day", root.value, root, isFocusable.value);
-      nextTick(() => root.value.focus());
+      setTimeout(() => {
+        root.value.focus();
+      }, 0);
       state.arrowNav = false;
     }
   }
@@ -32,7 +34,10 @@ watch(
 onMounted(() => {
   if (state.arrowNav && isSameDay(state.activeDate, props.day)) {
     console.log("found the day", root.value, root, isFocusable.value);
-    nextTick(() => root.value.focus());
+    // nextTick(() => root.value.focus());
+    setTimeout(() => {
+      root.value.focus();
+    }, 0);
     state.arrowNav = false;
   }
 });
