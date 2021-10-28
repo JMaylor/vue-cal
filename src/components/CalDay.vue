@@ -14,7 +14,7 @@ const isSelectedDate = computed(() =>
 );
 
 const display = computed(() => getDate(props.day));
-const isFocusable = (date: Date): boolean => isSameDay(date, state.activeDate);
+const isFocusable = computed(() => isSameDay(props.day, state.activeDate));
 
 const root = ref();
 
@@ -22,26 +22,30 @@ watch(
   () => state.activeDate,
   (value) => {
     if (state.arrowNav && isSameDay(value, props.day)) {
-      console.log("found the day", root);
+      console.log("found the day", root.value, root, isFocusable.value);
       nextTick(() => root.value.focus());
       state.arrowNav = false;
     }
-  },
+  }
 );
 
 onMounted(() => {
   if (state.arrowNav && isSameDay(state.activeDate, props.day)) {
+    console.log("found the day", root.value, root, isFocusable.value);
     nextTick(() => root.value.focus());
     state.arrowNav = false;
   }
 });
 
-const selectDate = () => (state.selectedDate = props.day);
+const selectDate = () => {
+  state.selectedDate = props.day;
+  state.activeDate = props.day;
+};
 </script>
 
 <template>
   <button
-    :tabindex="isFocusable(day) ? 0 : -1"
+    :tabindex="isFocusable ? 0 : -1"
     ref="root"
     @keydown.left="emit('arrowPress', $event)"
     @keydown.right="emit('arrowPress', $event)"
@@ -49,6 +53,7 @@ const selectDate = () => (state.selectedDate = props.day);
     @keydown.down="emit('arrowPress', $event)"
     @click="selectDate"
     class="
+      m-auto
       relative
       flex
       items-center
