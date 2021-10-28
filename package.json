@@ -1,18 +1,27 @@
 {
-  "name": "vue3-tailwind-unplugin-boilerplate",
-  "version": "0.0.0",
+  "name": "@jmaylor/vue-cal",
+  "version": "0.0.1",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue-cal.umd.js",
+  "module": "./dist/vue-cal.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-cal.es.js",
+      "require": "./dist/vue-cal.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview"
   },
   "dependencies": {
-    "@iconify/iconify": "^2.0.4",
     "date-fns": "^2.25.0",
     "vue": "^3.2.16"
   },
   "devDependencies": {
-    "@iconify/json": "^1.1.418",
     "@types/node": "^16.11.4",
     "@vitejs/plugin-vue": "^1.9.3",
     "autoprefixer": "^10.3.7",
